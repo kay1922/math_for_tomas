@@ -9,10 +9,13 @@ function randomInt(min, max) {
 
 function generateQuestion() {
   const op = Math.random() < 0.5 ? '+' : '-'
-  let a = randomInt(1, 9)
-  let b = randomInt(1, 9)
-  if (op === '-' && b > a) [a, b] = [b, a]   // no negative results
-  if (op === '-' && a === b) b = randomInt(1, a) // avoid zero result
+  let a, b
+  do {
+    a = randomInt(1, 19)
+    b = randomInt(1, 19)
+  } while (op === '+' && a + b > 30)
+  if (op === '-' && b > a) [a, b] = [b, a]
+  if (op === '-' && a === b) b = randomInt(1, a)
   return { a, b, op, answer: op === '+' ? a + b : a - b }
 }
 
